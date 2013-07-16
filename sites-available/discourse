@@ -15,7 +15,8 @@ server {
   gzip_types application/json text/css application/x-javascript;
 
   server_name discourse.lug.ustc.edu.cn;
-  
+  server_name discourse.blog.ustc.edu.cn;
+
   sendfile on;
 
   keepalive_timeout 65;
