@@ -19,22 +19,22 @@ Note that ```op``` user is only allowed to run ```/etc/init.d/nginx``` via sudo.
 
 ## FAQ
 
-**```git pull``` failed on the server**
+**Q: ```git pull``` failed on the server**
 
 1. ```git status``` to check local modifications. If there are valueable changes, copy it to the repository on your own machine.
 2. ```git reset --hard HEAD``` to go back to the last clean state.
 3. ```git pull```
 
-**I cannot ```git push``` on the server**
+**Q: I cannot ```git push``` on the server**
 
 The key of ```op``` user is added as a deploy key. It do not have write permission.
 
 Please make changes on your own machine, commit, push, then pull on the server.
 
-**```sudo service nginx reload``` does not work**
+**Q: ```sudo service nginx reload``` does not work**
 
 Please use ```sudo /etc/init.d/nginx reload``` instead.
 
-**```git status``` shows a untracked file ```conf.d/gitlab.key``` and it is not readable**
+**Q: ```git status``` shows a untracked file ```conf.d/gitlab.key``` and it is not readable**
 
 ```conf.d/gitlab.key``` is secret and should not be added into this repository. Please do NOT change this file.
