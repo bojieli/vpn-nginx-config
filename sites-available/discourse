@@ -8,10 +8,13 @@ upstream discourse {
 server {
 
   listen 80;
+  listen [::]:80;
+
   gzip on;
   gzip_min_length 1000;
   gzip_types application/json text/css application/x-javascript;
 
+  server_name discourse.lug.ustc.edu.cn;
   server_name discourse.blog.ustc.edu.cn;
   server_name test.discourse.blog.ustc.edu.cn;
   
