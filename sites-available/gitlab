@@ -1,0 +1,91 @@
+# GITLAB
+# Maintainer: @randx
+# App Version: 4.0
+
+upstream gitlab {
+  server unix:/home/git/gitlab/tmp/sockets/gitlab.socket;
+}
+
+server {
+  listen 80;
+  server_name gitlab.blog.ustc.edu.cn gitlab.lug.ustc.edu.cn;
+  root /home/git/gitlab/public;
+
+  access_log  /var/log/nginx/gitlab_access.log;
+  error_log   /var/log/nginx/gitlab_error.log;
+
+  error_page 404 /404.html;
+  error_page 422 /422.html;
+  error_page 500 /500.html;
+  error_page 502 /502.html;
+
+  location / {
+    # serve static files from defined root folder;.
+    # @gitlab is a named location for the upstream fallback, see below
+    try_files $uri $uri/index.html $uri.html @gitlab;
+  }
+
+  # if a file, which is not found in the root folder is requested,
+  # then the proxy pass the request to the upsteam (gitlab unicorn)
+  location @gitlab {
+    proxy_read_timeout 300; # https://github.com/gitlabhq/gitlabhq/issues/694
+    proxy_connect_timeout 300; # https://github.com/gitlabhq/gitlabhq/issues/694
+    proxy_redirect     off;
+
+    proxy_set_header   X-Forwarded-Proto $scheme;
+    proxy_set_header   Host              $http_host;
+    proxy_set_header   X-Real-IP         $remote_addr;
+
+    proxy_pass http://gitlab;
+  }
+}
+
+server {
+  listen 443 default_server;         # e.g., listen 192.168.1.1:80;
+  server_name gitlab.blog.ustc.edu.cn;     # e.g., server_name source.example.com;
+  root /home/git/gitlab/public;
+
+  access_log  /var/log/nginx/gitlab_access.log;
+  error_log   /var/log/nginx/gitlab_error.log;
+
+  error_page 404 /404.html;
+  error_page 422 /422.html;
+  error_page 500 /500.html;
+  error_page 502 /502.html;
+
+  ssl on;
+  ssl_certificate 	/etc/nginx/conf.d/gitlab.crt;
+  ssl_certificate_key 	/etc/nginx/conf.d/gitlab.key;
+
+  location / {
+    # serve static files from defined root folder;.
+    # @gitlab is a named location for the upstream fallback, see below
+    try_files $uri $uri/index.html $uri.html @gitlab;
+  }
+
+  location /glype2013 {
+    root /home/boj;
+    index index.html index.php;
+	location ~ \.php$ {
+   		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+   		fastcgi_index  index.php;
+   		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+   		include        fastcgi_params;
+	}
+  }
+
+  # if a file, which is not found in the root folder is requested,
+  # then the proxy pass the request to the upsteam (gitlab unicorn)
+  location @gitlab {
+    proxy_read_timeout 300; # https://github.com/gitlabhq/gitlabhq/issues/694
+    proxy_connect_timeout 300; # https://github.com/gitlabhq/gitlabhq/issues/694
+    proxy_redirect     off;
+
+    proxy_set_header   X-Forwarded-Proto $scheme;
+    proxy_set_header   Host              $http_host;
+    proxy_set_header   X-Real-IP         $remote_addr;
+
+    proxy_pass http://gitlab;
+  }
+}
+

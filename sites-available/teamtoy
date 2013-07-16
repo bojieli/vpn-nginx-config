@@ -1,0 +1,19 @@
+server {
+	listen 80;
+	listen   [::]:80 ipv6only=on;
+
+	server_name teamtoy.blog.ustc.edu.cn;
+
+	access_log  /var/log/nginx/teamtoy.access.log;
+        
+	location / {
+       		root /srv/www/teamtoy;
+ 		index index.php index.html;
+	    	location ~ \.php$ {
+               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+               		fastcgi_index  index.php;
+               		fastcgi_param  script_filename  $document_root$fastcgi_script_name;
+               		include        fastcgi_params;
+            	}
+        }
+}

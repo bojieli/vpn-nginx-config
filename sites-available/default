@@ -1,0 +1,165 @@
+server {
+	listen 80 default_server;
+	listen   [::]:80 ipv6only=on default_server;
+
+	server_name blog.ustc.edu.cn;
+#	root /usr/lib;
+
+	access_log  /var/log/nginx/mailman.access.log;
+        
+#	location = / {
+#                rewrite ^ /mailman/listinfo permanent;
+#        }
+# 
+#        location / {
+#                rewrite ^ /mailman$uri?$args;
+#        }
+# 
+#        location = /mailman/ {
+#                rewrite ^ /mailman/listinfo permanent;
+#        }
+# 
+#        location /mailman/ {
+#                include proxy_params;
+#                proxy_pass http://127.0.0.1:2122/;
+#                proxy_set_header Host $host;
+#                proxy_set_header X-Real-IP $remote_addr;
+#        }
+ 
+	location / {
+       		root /srv/blog/http;
+ 		index index.php index.html;
+	    	location ~ \.php$ {
+                	fastcgi_pass   unix://usr/local/var/run/php-fpm.sock;
+               		fastcgi_index  index.php;
+               		fastcgi_param  script_filename  $document_root$fastcgi_script_name;
+               		include        fastcgi_params;
+            	}
+        }
+
+        location /images/mailman {
+                alias /var/lib/mailman/icons;
+        }
+ 
+        location /pipermail {
+                alias /var/lib/mailman/archives/public;
+                autoindex on;
+        }
+
+	location /ustc_lug {
+		root /home/boj/googlegroup;
+		index index.php index.html;
+	    	location ~ \.php$ {
+               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+               		fastcgi_index  index.php;
+               		fastcgi_param  script_filename  $document_root$fastcgi_script_name;
+               		include        fastcgi_params;
+            	}
+	}
+
+	location /servmon {
+		root /home/boj;
+		index index.html index.php;
+	    	location ~ \.php$ {
+               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+               		fastcgi_index  index.php;
+               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+               		include        fastcgi_params;
+            	}
+	}
+
+	location /progit {
+		root /home/boj;
+		index index.html;
+		autoindex on;
+	}
+
+	location /czluck {
+		root /srv;
+		index index.html index.php;
+	    	location ~ \.php$ {
+               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+               		fastcgi_index  index.php;
+               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+               		include        fastcgi_params;
+            	}
+	}
+
+	location /freeshell {
+		root /srv;
+		index index.html index.php;
+		
+		access_log  /var/log/nginx/freeshell.access.log;
+		error_log   /var/log/nginx/freeshell.error.log;
+
+	    	location ~ \.php$ {
+               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+               		fastcgi_index  index.php;
+               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+               		include        fastcgi_params;
+            	}
+	}
+
+	location /freeshell-test {
+		alias /home/boj/freeshell-test/http;
+		index index.html index.php;
+		
+	    	location ~ \.php$ {
+               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+               		fastcgi_index  index.php;
+               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+               		include        fastcgi_params;
+            	}
+	}
+
+	location /public_html {
+		root /home/boj;
+		index index.html index.php;
+		autoindex on;
+	}
+
+#	location ~ ^/(blog|mirrors|software|YADUR|pxe) {
+#		set $PROJECT_NAME $1;
+#		set $TRAC_ENV_PYHOME /srv/python-env;
+#		set $TRAC_PROJECTS_DIR /srv/trac;
+#		set $PROJECT_PATH $TRAC_PROJECTS_DIR/$PROJECT_NAME;
+#
+#               include uwsgi_params;
+#               uwsgi_pass unix:///var/run/uwsgi-python/uwsgi/socket;
+#               uwsgi_param UWSGI_PYHOME $TRAC_ENV_PYHOME;
+#               uwsgi_param UWSGI_CHDIR $PROJECT_PATH/cgi-bin;
+#               uwsgi_param UWSGI_SCRIPT trac_wsgi;
+#               uwsgi_param UWSGI_SCHEME \$scheme;
+#               uwsgi_param REMOTE_USER \$remote_user;
+#	}
+
+#	location ~ ^/(blog|mirrors|software|YADUR|pxe|testing)/html {
+#		root /srv/gitwiki;
+#		autoindex on;
+#	}
+
+#	location /blog {
+#		proxy_pass http://127.0.0.1:8000/blog;
+#		proxy_redirect default;
+#	}
+#	location /mirrors {
+#		proxy_pass http://127.0.0.1:8001/mirrors;
+#		proxy_redirect default;
+#	}
+#	location /software {
+#		proxy_pass http://127.0.0.1:8002/software;
+#		proxy_redirect default;
+#	}
+#	location /YADUR {
+#		proxy_pass http://127.0.0.1:8003/YADUR;
+#		proxy_redirect default;
+#	}
+#	location /pxe {
+#		proxy_pass http://127.0.0.1:8004/pxe;
+#		proxy_redirect default;
+#	}
+#	location /testing {
+#		proxy_pass http://127.0.0.1:8005/testing;
+#		proxy_redirect default;
+#	}
+}

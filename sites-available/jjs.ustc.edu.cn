@@ -1,0 +1,16 @@
+server {
+	listen 80;
+	listen   [::]:80;
+	
+	server_name jjs.ustc.edu.cn;
+
+	location / {
+		proxy_pass 	http://jjs.blog.ustc.edu.cn/;
+		proxy_redirect 	default;
+		proxy_set_header Host jjs.blog.ustc.edu.cn;
+		proxy_set_header X-Real-IP $remote_addr;
+	}
+
+	access_log /var/log/nginx/jjs/access.log;
+	error_log  /var/log/nginx/jjs/error.log;
+}

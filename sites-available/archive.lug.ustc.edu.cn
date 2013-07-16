@@ -1,0 +1,14 @@
+server {
+	listen 80;
+	listen   [::]:80;
+	server_name archive.lug.ustc.edu.cn;
+
+	access_log /var/log/nginx/mailman.access.log;
+	error_log  /var/log/nginx/mailman.error.log;
+
+	location / {
+		root /var/lib/mailman/archives/public/ustc_lug;
+		index index.html index.htm;
+		autoindex off;
+	}
+}
