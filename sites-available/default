@@ -30,7 +30,7 @@ server {
        		root /srv/blog/http;
  		index index.php index.html;
 	    	location ~ \.php$ {
-                	fastcgi_pass   unix://usr/local/var/run/php-fpm.sock;
+                	fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
                		fastcgi_index  index.php;
                		fastcgi_param  script_filename  $document_root$fastcgi_script_name;
                		include        fastcgi_params;
