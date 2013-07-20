@@ -1,16 +1,16 @@
-server {
-    listen      54321 default_server;
-    resolver	202.38.64.56;
-
-    location / {
-	proxy_pass http://$http_host$request_uri;
-	proxy_set_header  Host	     $host;
-	proxy_set_header  X-Real-IP  $remote_addr;
-    }
-
-    access_log /var/log/nginx/proxy/access.log;
-    error_log  /var/log/nginx/proxy/error.log;
-}
+#server {
+#    listen      54321 default_server;
+#    resolver	202.38.64.56;
+#
+#    location / {
+#	proxy_pass http://$http_host$request_uri;
+#	proxy_set_header  Host	     $host;
+#	proxy_set_header  X-Real-IP  $remote_addr;
+#    }
+#
+#    access_log /var/log/nginx/proxy/access.log;
+#    error_log  /var/log/nginx/proxy/error.log;
+#}
 
 server {
     listen      80;
