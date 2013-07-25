@@ -24,7 +24,7 @@ server {
                 fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
                 fastcgi_index  index.php;
                 fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                fastcgi_param  SERVER_NAME      $host
+                fastcgi_param  SERVER_NAME      $host;
             }
         }
 }
