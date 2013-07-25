@@ -1,11 +1,11 @@
-    server {
-        listen       80;
-	listen   [::]:80;
- 
+server {
+        listen   80;
+        listen   [::]:80;
+
         server_name  *.blog.ustc.edu.cn;
 
-	error_page 502 = http://blog.ustc.edu.cn/need_activate.php;
-	error_page 404 = http://blog.ustc.edu.cn/404.html;
+        error_page 502 = http://blog.ustc.edu.cn/need_activate.php;
+        error_page 404 = http://blog.ustc.edu.cn/404.html;
 
         if ( $host ~* (\b(?!www\b)\w+)\.\w+ ) {
             set $root /srv/blog/base/$1;
@@ -24,7 +24,8 @@
                 fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
                 fastcgi_index  index.php;
                 fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                fastcgi_param  SERVER_NAME      $host
             }
         }
-    }
+}
 
