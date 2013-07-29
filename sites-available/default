@@ -30,10 +30,12 @@ server {
             root /srv/blog/http;
             index index.php index.html;
             location ~ \.php$ {
+                    include        fastcgi_params;
                     fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
                     fastcgi_index  index.php;
-                    fastcgi_param  script_filename  $document_root$fastcgi_script_name;
-                    include        fastcgi_params;
+                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                    ## security checker requires SERVER_NAME to be set
+                    fastcgi_param  SERVER_NAME      blog.ustc.edu.cn;
             }
     }
 
