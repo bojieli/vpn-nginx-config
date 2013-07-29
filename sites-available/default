@@ -25,98 +25,98 @@ server {
 #                proxy_set_header Host $host;
 #                proxy_set_header X-Real-IP $remote_addr;
 #        }
- 
-	location / {
-       		root /srv/blog/http;
- 		index index.php index.html;
-	    	location ~ \.php$ {
-                	fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
-               		fastcgi_index  index.php;
-               		fastcgi_param  script_filename  $document_root$fastcgi_script_name;
-               		include        fastcgi_params;
-            	}
-        }
 
-        location /images/mailman {
-                alias /var/lib/mailman/icons;
-        }
- 
-        location /pipermail {
-                alias /var/lib/mailman/archives/public;
-                autoindex on;
-        }
+    location / {
+            root /srv/blog/http;
+            index index.php index.html;
+            location ~ \.php$ {
+                    fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
+                    fastcgi_index  index.php;
+                    fastcgi_param  script_filename  $document_root$fastcgi_script_name;
+                    include        fastcgi_params;
+            }
+    }
 
-	location /ustc_lug {
-		root /home/boj/googlegroup;
-		index index.php index.html;
-	    	location ~ \.php$ {
-               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
-               		fastcgi_index  index.php;
-               		fastcgi_param  script_filename  $document_root$fastcgi_script_name;
-               		include        fastcgi_params;
-            	}
-	}
+    location /images/mailman {
+            alias /var/lib/mailman/icons;
+    }
 
-	location /servmon {
-		root /home/boj;
-		index index.html index.php;
-	    	location ~ \.php$ {
-               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
-               		fastcgi_index  index.php;
-               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-               		include        fastcgi_params;
-            	}
-	}
+    location /pipermail {
+            alias /var/lib/mailman/archives/public;
+            autoindex on;
+    }
 
-	location /progit {
-		root /home/boj;
-		index index.html;
-		autoindex on;
-	}
+    location /ustc_lug {
+            root /home/boj/googlegroup;
+            index index.php index.html;
+            location ~ \.php$ {
+                    fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+                    fastcgi_index  index.php;
+                    fastcgi_param  script_filename  $document_root$fastcgi_script_name;
+                    include        fastcgi_params;
+            }
+    }
 
-	location /czluck {
-		root /srv;
-		index index.html index.php;
-	    	location ~ \.php$ {
-               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
-               		fastcgi_index  index.php;
-               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-               		include        fastcgi_params;
-            	}
-	}
+    location /servmon {
+            root /home/boj;
+            index index.html index.php;
+            location ~ \.php$ {
+                    fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+                    fastcgi_index  index.php;
+                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                    include        fastcgi_params;
+            }
+    }
 
-	location /freeshell {
-		root /srv;
-		index index.html index.php;
-		
-		access_log  /var/log/nginx/freeshell.access.log;
-		error_log   /var/log/nginx/freeshell.error.log;
+    location /progit {
+            root /home/boj;
+            index index.html;
+            autoindex on;
+    }
 
-	    	location ~ \.php$ {
-               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
-               		fastcgi_index  index.php;
-               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-               		include        fastcgi_params;
-            	}
-	}
+    location /czluck {
+            root /srv;
+            index index.html index.php;
+            location ~ \.php$ {
+                    fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+                    fastcgi_index  index.php;
+                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                    include        fastcgi_params;
+            }
+    }
 
-	location /freeshell-test {
-		alias /home/boj/freeshell-test/http;
-		index index.html index.php;
-		
-	    	location ~ \.php$ {
-               		fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
-               		fastcgi_index  index.php;
-               		fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-               		include        fastcgi_params;
-            	}
-	}
+    location /freeshell {
+            root /srv;
+            index index.html index.php;
 
-	location /public_html {
-		root /home/boj;
-		index index.html index.php;
-		autoindex on;
-	}
+            access_log  /var/log/nginx/freeshell.access.log;
+            error_log   /var/log/nginx/freeshell.error.log;
+
+            location ~ \.php$ {
+                    fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+                    fastcgi_index  index.php;
+                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                    include        fastcgi_params;
+            }
+    }
+
+    location /freeshell-test {
+            alias /home/boj/freeshell-test/http;
+            index index.html index.php;
+
+            location ~ \.php$ {
+                    fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+                    fastcgi_index  index.php;
+                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                    include        fastcgi_params;
+            }
+    }
+
+    location /public_html {
+            root /home/boj;
+            index index.html index.php;
+            autoindex on;
+    }
 
 #	location ~ ^/(blog|mirrors|software|YADUR|pxe) {
 #		set $PROJECT_NAME $1;
