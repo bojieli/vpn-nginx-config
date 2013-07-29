@@ -11,6 +11,6 @@ server {
 		proxy_set_header X-Real-IP $remote_addr;
 	}
 
-	access_log /var/log/nginx/jjs/access.log;
-	error_log  /var/log/nginx/jjs/error.log;
+	access_log /var/log/nginx/jjs.access.log;
+	error_log  /var/log/nginx/jjs.error.log;
 }
