@@ -25,7 +25,7 @@ server {
         access_log  /var/log/nginx/test.freeshell.access.log;
         error_log   /var/log/nginx/test.freeshell.error.log;
 
-        root /home/boj/freeshell-test;
+        root /srv/freeshell-test;
         index index.html index.php index.htm;
 
         location ~ \.php$ {
