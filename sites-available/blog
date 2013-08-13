@@ -4,10 +4,13 @@ server {
 
         server_name  *.blog.ustc.edu.cn;
 
+        access_log /var/log/nginx/blog/access.log logverbose;
+        error_log  /var/log/nginx/blog/error.log;
+
         error_page 502 = http://blog.ustc.edu.cn/need_activate.php;
         error_page 404 = http://blog.ustc.edu.cn/404.html;
 
-        if ( $host ~* (\b(?!www\b)\w+)\.\w+ ) {
+        if ( $host ~* (\b(?!www\b)[\w-]+)\.\w+ ) {
             set $root /srv/blog/base/$1;
         }
 

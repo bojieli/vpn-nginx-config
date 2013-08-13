@@ -1,12 +1,31 @@
 server {
         listen 80;
         listen   [::]:80;
-        server_name freeshell.ustc.edu.cn *.freeshell.ustc.edu.cn;
+        server_name freeshell.ustc.edu.cn my.freeshell.ustc.edu.cn;
 
         access_log  /var/log/nginx/freeshell.access.log;
         error_log   /var/log/nginx/freeshell.error.log;
 
         root /srv/freeshell;
+        index index.html index.php index.htm;
+
+        location ~ \.php$ {
+                fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                include        fastcgi_params;
+        }
+}
+
+server {
+        listen 80;
+        listen   [::]:80;
+        server_name test.freeshell.ustc.edu.cn;
+
+        access_log  /var/log/nginx/test.freeshell.access.log;
+        error_log   /var/log/nginx/test.freeshell.error.log;
+
+        root /srv/freeshell-test;
         index index.html index.php index.htm;
 
         location ~ \.php$ {
