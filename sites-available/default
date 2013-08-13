@@ -60,14 +60,7 @@ server {
     }
 
     location /servmon {
-            root /home/boj;
-            index index.html index.php;
-            location ~ \.php$ {
-                    fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
-                    fastcgi_index  index.php;
-                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                    include        fastcgi_params;
-            }
+            rewrite ^/servmon(.*) http://servmon.lug.ustc.edu.cn$1 permanent;
     }
 
     location /progit {
