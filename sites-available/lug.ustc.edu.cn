@@ -1,10 +1,10 @@
 server {
 
-    listen   80 default; ## listen for ipv4
-    listen   [::]:80 default ipv6only=on; ## listen for ipv6
+    listen   80; ## listen for ipv4
+    listen   [::]:80; ## listen for ipv6
 
     server_name lug.ustc.edu.cn;
-    root   /srv/www;
+    root   /srv/lug.ustc.edu.cn;
 
     access_log  /var/log/nginx/lug.ustc.edu.cn/access.log;
     error_log /var/log/nginx/lug.ustc.edu.cn/error.log;
@@ -182,7 +182,7 @@ server {
 
 
     location ~ \.php$ {
-        fastcgi_pass    127.0.0.1:9000;
+        fastcgi_pass    unix://var/run/php-fpm/php-fpm.sock;
         fastcgi_index   index.php;
         fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include         fastcgi_params;
