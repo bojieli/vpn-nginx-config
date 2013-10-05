@@ -19,7 +19,7 @@ server {
     server_name shi6proxy.blog.ustc.edu.cn;
 
     location / {
-	proxy_pass http://shi6.net:8000/;
+	proxy_pass http://shi6.com:8000/;
 	proxy_set_header  X-Real-IP  $remote_addr;
     }
 
