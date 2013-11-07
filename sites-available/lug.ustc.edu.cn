@@ -1,7 +1,9 @@
 server {
 
     listen   80; ## listen for ipv4
+    listen   443;
     listen   [::]:80; ## listen for ipv6
+    listen   [::]:443;
 
     server_name lug.ustc.edu.cn;
     root   /srv/lug.ustc.edu.cn;

@@ -1,6 +1,9 @@
 server {
         listen 80;
-        listen   [::]:80;
+	listen 443;
+        listen [::]:80;
+	listen [::]:443;
+
         server_name freeshell.ustc.edu.cn my.freeshell.ustc.edu.cn;
 
         access_log  /var/log/nginx/freeshell.access.log;

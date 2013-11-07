@@ -8,7 +8,9 @@ upstream discourse {
 server {
 
   listen 80;
+  listen 443;
   listen [::]:80;
+  listen [::]:443;
 
   gzip on;
   gzip_min_length 1000;

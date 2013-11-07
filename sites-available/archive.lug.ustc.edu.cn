@@ -1,6 +1,9 @@
 server {
 	listen 80;
-	listen   [::]:80;
+        listen 443;
+	listen [::]:80;
+	listen [::]:443;
+
 	server_name archive.lug.ustc.edu.cn;
 
 	access_log /var/log/nginx/mailman.access.log;
