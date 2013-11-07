@@ -6,6 +6,8 @@ server {
 
     server_name vpn.lug.ustc.edu.cn;
 
+    include conf.d/redirect2https.inc;
+
     root /srv/vpn/www;
     autoindex on;
 }

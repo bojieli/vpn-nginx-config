@@ -6,6 +6,8 @@ server {
 
         server_name freeshell.ustc.edu.cn my.freeshell.ustc.edu.cn;
 
+	include conf.d/redirect2https.inc;
+
         access_log  /var/log/nginx/freeshell.access.log;
         error_log   /var/log/nginx/freeshell.error.log;
 
@@ -24,6 +26,8 @@ server {
         listen 80;
         listen   [::]:80;
         server_name test.freeshell.ustc.edu.cn;
+
+	include conf.d/redirect2https.inc;
 
         access_log  /var/log/nginx/test.freeshell.access.log;
         error_log   /var/log/nginx/test.freeshell.error.log;

@@ -6,6 +6,8 @@ server {
 	
 	server_name jjs.ustc.edu.cn;
 
+	include conf.d/redirect2https.inc;
+
 	location / {
 		proxy_pass 	http://jjs.blog.ustc.edu.cn/;
 		proxy_redirect 	default;

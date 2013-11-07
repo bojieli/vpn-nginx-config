@@ -41,7 +41,7 @@ server {
 }
 
 server {
-  listen 443 default_server;         # e.g., listen 192.168.1.1:80;
+  listen 443;         # e.g., listen 192.168.1.1:80;
   server_name gitlab.blog.ustc.edu.cn;     # e.g., server_name source.example.com;
   root /home/git/gitlab/public;
 

@@ -19,6 +19,8 @@ server {
   server_name discourse.lug.ustc.edu.cn;
   server_name discourse.blog.ustc.edu.cn;
 
+  include conf.d/redirect2https.inc;
+
   sendfile on;
 
   keepalive_timeout 65;

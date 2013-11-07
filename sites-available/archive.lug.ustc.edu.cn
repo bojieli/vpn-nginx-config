@@ -6,6 +6,8 @@ server {
 
 	server_name archive.lug.ustc.edu.cn;
 
+	include conf.d/redirect2https.inc;
+
 	access_log /var/log/nginx/mailman.access.log;
 	error_log  /var/log/nginx/mailman.error.log;
 

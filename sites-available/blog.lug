@@ -5,6 +5,6 @@ server {
 	listen [::]:443;
 
 	server_name blog.lug.ustc.edu.cn;
-	rewrite ^/(.*) http://blog.ustc.edu.cn/$1 permanent;
+	rewrite ^/(.*) $scheme://blog.ustc.edu.cn/$1 permanent;
 }
 

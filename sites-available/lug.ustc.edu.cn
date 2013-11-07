@@ -8,6 +8,8 @@ server {
     server_name lug.ustc.edu.cn;
     root   /srv/lug.ustc.edu.cn;
 
+    include conf.d/redirect2https.inc;
+
     access_log  /var/log/nginx/lug.ustc.edu.cn/access.log;
     error_log /var/log/nginx/lug.ustc.edu.cn/error.log;
 

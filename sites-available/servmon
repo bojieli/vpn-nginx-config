@@ -6,6 +6,8 @@ server {
 
     server_name servmon.lug.ustc.edu.cn;
 
+    include conf.d/redirect2https.inc;
+
     root /srv/servmon;
     index index.html index.php;
 

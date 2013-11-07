@@ -6,6 +6,8 @@ server {
 
         server_name  *.blog.ustc.edu.cn;
 
+	include conf.d/redirect2https.inc;
+
         access_log /var/log/nginx/blog/access.log logverbose;
         error_log  /var/log/nginx/blog/error.log;
 
