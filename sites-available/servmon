@@ -17,4 +17,11 @@ server {
             fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
             include        fastcgi_params;
     }
+
+    location /static {
+            proxy_pass     http://huodong.ustc.edu.cn/static;
+    }
+    location /bootstrap {
+            proxy_pass     http://huodong.ustc.edu.cn/bootstrap;
+    }
 }
