@@ -24,7 +24,9 @@ server {
 
 server {
         listen 80;
-        listen   [::]:80;
+	listen 443;
+        listen [::]:80;
+	listen [::]:443;
         server_name test.freeshell.ustc.edu.cn;
 
 	include conf.d/redirect2https.inc;
