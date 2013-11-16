@@ -4,7 +4,7 @@ server {
         listen [::]:80;
 	listen [::]:443;
 
-        server_name freeshell.ustc.edu.cn my.freeshell.ustc.edu.cn;
+        server_name freeshell.ustc.edu.cn;
 
 	include conf.d/redirect2https.inc;
 
@@ -43,4 +43,16 @@ server {
                 fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
                 include        fastcgi_params;
         }
+}
+
+# redirect unallocated names to freeshell index
+server {
+	listen 80;
+	listen 443;
+	listen [::]:80;
+	listen [::]:443;
+
+	server_name *.freeshell.ustc.edu.cn;
+
+	rewrite ^.*$ http://freeshell.ustc.edu.cn/ redirect;
 }
