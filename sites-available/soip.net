@@ -1,0 +1,18 @@
+server {
+    listen 80;
+    listen 443;
+    listen [::]:80;
+    listen [::]:443;
+
+    server_name soip.net *.soip.net;
+    access_log  /var/log/nginx/soip.net.access.log logverbose;
+
+    include conf.d/redirect2https.inc;
+
+    location / {
+    	proxy_pass   http://soip.6.freeshell.ustc.edu.cn:3000;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header Host       $http_host;
+        proxy_set_header X-Scheme   $scheme;
+    }
+}
