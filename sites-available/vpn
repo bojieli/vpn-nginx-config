@@ -10,4 +10,12 @@ server {
 
     root /srv/vpn/www;
     autoindex on;
+
+    location ~ \.php$ {
+        include        fastcgi_params;
+        fastcgi_pass   unix://var/run/php-fpm/php-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        fastcgi_param  SERVER_NAME      $host;
+    }
 }
