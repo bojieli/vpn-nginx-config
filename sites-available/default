@@ -4,6 +4,15 @@ server {
 	listen [::]:80 ipv6only=on default_server;
 	listen [::]:443 ipv6only=on default_server spdy ssl;
 
+	rewrite ^/(.*)$ https://blog.ustc.edu.cn/$1 redirect;
+}
+
+server {
+	listen 80;
+	listen 443;
+	listen [::]:80;
+	listen [::]:443;
+
 	server_name blog.ustc.edu.cn;
 #	root /usr/lib;
 
