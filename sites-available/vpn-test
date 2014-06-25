@@ -1,0 +1,13 @@
+server {
+	listen 80;
+	listen [::]:80;
+	listen 443;
+	listen [::]:443;
+
+	server_name vpn-test.lug.ustc.edu.cn;
+
+	location / {
+		proxy_pass http://twitter.com;
+		proxy_set_header Host twitter.com;
+	}
+}
