@@ -7,7 +7,7 @@ server {
 	server_name vpn-test.lug.ustc.edu.cn;
 
 	location / {
-		proxy_pass http://twitter.com;
-		proxy_set_header Host twitter.com;
+		proxy_pass http://openvpn.net;
+		proxy_set_header Host openvpn.net;
 	}
 }
