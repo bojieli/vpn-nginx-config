@@ -4,6 +4,9 @@
     if ($http_user_agent ~ "MSIE (5|6|7)") {
         set $test "IE-legacy";
     }
+    if ($http_x_original_host) {
+    	set $test "Proxied";
+    }
     if ($scheme = "https") {
         set $test "secured";
     }
