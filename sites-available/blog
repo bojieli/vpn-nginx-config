@@ -35,9 +35,10 @@ server {
             }
 
             subs_filter_types text/html text/css text/javascript text/xml;
-            subs_filter http(s?)://fonts.googleapis.com/ http$1://fonts.lug.ustc.edu.cn/ ir;
-            subs_filter http(s?)://ajax.googleapis.com/ http$1://ajax.lug.ustc.edu.cn/ ir;
-            subs_filter http(s?)://themes.googleusercontent.com/ http$1://google-themes.lug.ustc.edu.cn/ ir;
+            subs_filter //fonts.googleapis.com/         //fonts.lug.ustc.edu.cn/;
+            subs_filter //ajax.googleapis.com/          //ajax.lug.ustc.edu.cn/;
+            subs_filter //themes.googleusercontent.com/ //google-themes.lug.ustc.edu.cn/;
+            subs_filter //fonts.gstatic.com/            //fonts-gstatic.lug.ustc.edu.cn/;
         }
 }
 
