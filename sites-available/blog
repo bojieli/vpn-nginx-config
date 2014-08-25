@@ -37,19 +37,10 @@ server {
                 fastcgi_index  index.php;
                 fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
                 fastcgi_param  SERVER_NAME      $host;
+		fastcgi_param  HTTP_HOST        $real_http_host;
 
                 limit_conn ipconn 5;
                 limit_conn hostconn 30;
-            }
-
-            location = /xmlrpc.php {
-                include        fastcgi_params;
-                fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
-                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                fastcgi_param  SERVER_NAME      $host;
-
-                limit_conn ipconn 1;
-                limit_conn hostconn 2;
             }
 
             subs_filter_types text/html text/css text/javascript text/xml;
