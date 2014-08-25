@@ -18,6 +18,11 @@ server {
             set $root /srv/blog/base/$1;
         }
 
+	set $real_http_host $http_host;
+	if ( $http_x_original_host ) {
+	    set $real_http_host $http_x_original_host;
+	}
+
         location / {
             root $root;
             index  index.html index.htm index.php;
