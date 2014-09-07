@@ -14,14 +14,13 @@ server {
         error_page 502 = http://blog.ustc.edu.cn/need_activate.php;
         error_page 404 = http://blog.ustc.edu.cn/404.html;
 
-        if ( $host ~* (\b(?!www\b)[\w-]+)\.\w+ ) {
-            set $root /srv/blog/base/$1;
-        }
-
-	set $real_http_host $http_host;
-	if ( $http_x_original_host ) {
-	    set $real_http_host $http_x_original_host;
-	}
+	set_by_lua $root 'local _,_,match = string.find(ngx.var.host, "([%w-]+)\.blog\.ustc\.edu\.cn$")
+		if match == nil then
+			return "/nonexist"
+		else
+			return "/srv/blog/base/" .. match
+		end';
+	set_by_lua $real_http_host 'if ngx.var.http_x_original_host then return ngx.var.http_x_original_host else return ngx.var.http_host end';
 
         location / {
             root $root;
@@ -62,4 +61,3 @@ server {
 	location ~ "^/pagespeed_static/" { }
 	location ~ "^/ngx_pagespeed_beacon$" { }
 }
-
