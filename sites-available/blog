@@ -25,11 +25,9 @@ server {
 
         location / {
             root $root;
+            # wordpress reads uri from REQUEST_URI and does not require /index.php?q=$uri&$args
+            try_files $uri $uri/ /index.php;
             index  index.html index.htm index.php;
-
-            if (!-e $request_filename) {
-                rewrite ^/(.+)$ /index.php?q=$1 last;
-            }
 
             location ~ \.php$ {
                 include        fastcgi_params;
