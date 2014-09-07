@@ -1,15 +1,7 @@
-    if ($http_user_agent ~ "Mozilla") {
-        set $test "Browser";
-    }
-    if ($http_user_agent ~ "MSIE (5|6|7)") {
-        set $test "IE-legacy";
-    }
-    if ($http_x_original_host) {
-    	set $test "Proxied";
-    }
-    if ($scheme = "https") {
-        set $test "secured";
-    }
-    if ($test = "Browser") {
-        rewrite ^/(.*)$ https://$http_host/$1 permanent;
-    }
+rewrite_by_lua '
+	if ngx.var.scheme == "https" then return end
+	if ngx.var.http_x_original_host then return end
+	if ngx.re.match(ngx.var.http_user_agent, "Mozilla") then
+		if ngx.re.match(ngx.var.http_user_agent, "MSIE (5|6|7)") then return end
+		return ngx.redirect("https://" .. ngx.var.http_host .. ngx.var.request_uri)
+	end';
