@@ -38,6 +38,7 @@ server {
 
         location / {
             # wordpress reads uri from REQUEST_URI and does not require /index.php?q=$uri&$args
+            # Note: /index.php must be the last item in try_files, otherwise the php source code would be shown.
             try_files $uri $uri/ /index.php;
             index  index.html index.htm index.php;
 
