@@ -20,32 +20,34 @@ server {
 		else
 			return "/srv/blog/base/" .. match
 		end';
+	root $root;
 	set_by_lua $real_http_host 'if ngx.var.http_x_original_host then return ngx.var.http_x_original_host else return ngx.var.http_host end';
 
+
+        location ~ \.php$ {
+            include        fastcgi_params;
+            fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param  SERVER_NAME      $host;
+            fastcgi_param  HTTP_HOST        $real_http_host;
+
+            limit_conn ipconn 5;
+            limit_conn hostconn 30;
+        }
+
         location / {
-            root $root;
             # wordpress reads uri from REQUEST_URI and does not require /index.php?q=$uri&$args
             try_files $uri $uri/ /index.php;
             index  index.html index.htm index.php;
 
-            location ~ \.php$ {
-                include        fastcgi_params;
-                fastcgi_pass   unix://var/run/ustcblog/php-fpm.sock;
-                fastcgi_index  index.php;
-                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                fastcgi_param  SERVER_NAME      $host;
-		fastcgi_param  HTTP_HOST        $real_http_host;
-
-                limit_conn ipconn 5;
-                limit_conn hostconn 30;
-            }
-
-            subs_filter_types text/html text/css text/javascript text/xml;
-            subs_filter //fonts.googleapis.com/         //fonts.lug.ustc.edu.cn/;
-            subs_filter //ajax.googleapis.com/          //ajax.lug.ustc.edu.cn/;
-            subs_filter //themes.googleusercontent.com/ //google-themes.lug.ustc.edu.cn/;
-            subs_filter //fonts.gstatic.com/            //fonts-gstatic.lug.ustc.edu.cn/;
         }
+
+        subs_filter_types text/html text/css text/javascript text/xml;
+        subs_filter //fonts.googleapis.com/         //fonts.lug.ustc.edu.cn/;
+        subs_filter //ajax.googleapis.com/          //ajax.lug.ustc.edu.cn/;
+        subs_filter //themes.googleusercontent.com/ //google-themes.lug.ustc.edu.cn/;
+        subs_filter //fonts.gstatic.com/            //fonts-gstatic.lug.ustc.edu.cn/;
 
 	# ngx_pagespeed config
 	pagespeed off;
