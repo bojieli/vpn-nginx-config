@@ -42,6 +42,7 @@ server {
             try_files $uri $uri/ /index.php;
             index  index.html index.htm index.php;
 
+            rewrite ^/[a-zA-Z0-9._-]+(/wp-.*)$ $1 last;
         }
 
         subs_filter_types text/html text/css text/javascript text/xml;
