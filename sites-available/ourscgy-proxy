@@ -1,0 +1,29 @@
+server {
+	listen 80;
+	listen [::]:80;
+	
+	server_name ourscgy.ustc.edu.cn *.ourscgy.ustc.edu.cn;
+	
+	location / {
+    		proxy_pass http://202.38.70.99:80;
+                proxy_set_header Host       $http_host;
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_set_header X-Real-IP  $remote_addr;
+                proxy_set_header X-Scheme   $scheme;
+	}
+}
+
+server {
+	listen 80;
+	listen [::]:80;
+	
+	server_name hacker.ourscgy.ustc.edu.cn;
+	
+	location / {
+    		proxy_pass http://202.38.70.237:80;
+                proxy_set_header Host       $http_host;
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_set_header X-Real-IP  $remote_addr;
+                proxy_set_header X-Scheme   $scheme;
+	}
+}
