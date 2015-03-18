@@ -34,6 +34,10 @@ server {
     root /srv/vpn/www;
     autoindex on;
 
+    if ($arg_url) {
+        return 302 $arg_url;
+    }
+
     location = / {
         if ($from_ustc = 0) {
             error_page 403 /403.html;
