@@ -22,10 +22,10 @@ geo $from_ustc {
 }
 
 server {
-    listen 80;
-    listen 443;
-    listen [::]:80;
-    listen [::]:443;
+    listen 80 default;
+    listen 443 default ssl;
+    listen [::]:80 ipv6only=on default;
+    listen [::]:443 ipv6only=on default ssl;
 
     server_name vpn.lug.ustc.edu.cn;
 
